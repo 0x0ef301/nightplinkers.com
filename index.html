@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Night Plinkers — Airgun Safety & Documentation Services</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, Helvetica, sans-serif; color: #1a1a1a; background: #fff; line-height: 1.6; }
+    a { color: #1a5276; }
+    a:hover { text-decoration: underline; }
+
+    .site-header { background: #0d1b2a; color: #fff; padding: 2rem 1.5rem; }
+    .eyebrow { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #7fb3d3; margin-bottom: 0.5rem; }
+    .site-header h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .site-header .tagline { font-size: 1rem; color: #ccd6dd; max-width: 640px; }
+    .header-cta { margin-top: 1.25rem; display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .btn-primary { display: inline-block; background: #1a5276; color: #fff; padding: 0.6rem 1.2rem; border-radius: 4px; text-decoration: none; font-weight: 600; }
+    .btn-primary:hover { background: #154360; text-decoration: none; }
+    .btn-secondary { display: inline-block; background: transparent; color: #7fb3d3; padding: 0.6rem 1.2rem; border-radius: 4px; text-decoration: none; border: 1px solid #7fb3d3; font-weight: 600; }
+    .btn-secondary:hover { background: rgba(127,179,211,0.1); text-decoration: none; }
+
+    main { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+    section { margin-bottom: 2.5rem; }
+    section h2 { font-size: 1.25rem; font-weight: 700; border-bottom: 2px solid #1a5276; padding-bottom: 0.4rem; margin-bottom: 1rem; color: #0d1b2a; }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
+
+    ul { padding-left: 1.25rem; }
+    ul li { margin-bottom: 0.5rem; }
+
+    .service-list { list-style: none; padding-left: 0; }
+    .service-list li { border-left: 3px solid #1a5276; padding: 0.5rem 0.75rem; margin-bottom: 0.75rem; background: #f4f6f7; }
+    .service-list li strong { display: block; font-weight: 700; margin-bottom: 0.2rem; }
+
+    .risk-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .risk-table th { background: #0d1b2a; color: #fff; padding: 0.5rem 0.75rem; text-align: left; }
+    .risk-table td { padding: 0.5rem 0.75rem; border-bottom: 1px solid #d5d8dc; vertical-align: top; }
+    .risk-table tr:nth-child(even) td { background: #f4f6f7; }
+
+    .contributor-note { background: #eaf2f8; border-left: 4px solid #1a5276; padding: 0.75rem 1rem; font-size: 0.9rem; }
+
+    .hub-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .hub-links a { background: #1a5276; color: #fff; padding: 0.5rem 1rem; border-radius: 4px; text-decoration: none; font-weight: 600; }
+    .hub-links a:hover { background: #154360; }
+
+    /* Contact & Form */
+    .contact-section { background: #f4f6f7; border-radius: 6px; padding: 1.5rem; }
+    .contact-meta { margin-bottom: 1rem; font-size: 0.95rem; }
+    .contact-meta p { margin-bottom: 0.35rem; }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 640px) { .form-grid { grid-template-columns: 1fr; } }
+    .form-group { display: flex; flex-direction: column; gap: 0.3rem; }
+    .form-group.full { grid-column: 1 / -1; }
+    label { font-size: 0.85rem; font-weight: 600; color: #1a1a1a; }
+    input[type="text"], input[type="email"], select, textarea {
+      padding: 0.5rem 0.75rem; border: 1px solid #aab7b8; border-radius: 4px;
+      font-size: 0.95rem; font-family: inherit; width: 100%;
+    }
+    input:focus, select:focus, textarea:focus { outline: 2px solid #1a5276; border-color: #1a5276; }
+    textarea { resize: vertical; min-height: 80px; }
+    .form-actions { margin-top: 1.25rem; display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; }
+    .btn-submit { background: #1a5276; color: #fff; padding: 0.6rem 1.4rem; border: none; border-radius: 4px; font-size: 1rem; font-weight: 600; cursor: pointer; }
+    .btn-submit:hover { background: #154360; }
+    .btn-sample { background: transparent; color: #1a5276; padding: 0.6rem 1.2rem; border: 1px solid #1a5276; border-radius: 4px; font-size: 1rem; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; }
+    .btn-sample:hover { background: #eaf2f8; text-decoration: none; }
+
+    .site-footer { background: #0d1b2a; color: #7fb3d3; text-align: center; padding: 1rem; font-size: 0.8rem; }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       ABOVE-THE-FOLD: Primary value proposition for manufacturers
+       ============================================================ -->
+  <header class="site-header">
+    <p class="eyebrow">Industry Authority &bull; Safety Modernization</p>
+    <h1>Advancing Modern Airgun Safety and Documentation</h1>
+    <p class="tagline">Supporting manufacturers, importers, and responsible owners through structured standards, educational guidance, and field-informed practices.</p>
+    <nav class="header-cta" aria-label="Primary actions">
+      <a class="btn-primary" href="#np-contact">Request a Documentation Review</a>
+      <a class="btn-secondary" href="https://www.airgunhobbyist.com" rel="noopener noreferrer" target="_blank">Airgun Hobbyist Magazine</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ============================================================
+         SERVICES — professional consulting, isolated from hobby content
+         ============================================================ -->
+    <section aria-labelledby="services-heading">
+      <h2 id="services-heading">Services</h2>
+      <ul class="service-list">
+        <li>
+          <strong>Safety Update / Insert / Quick Start</strong>
+          Modernized safety language, quick-start cards, and packing inserts aligned with current documentation standards.
+        </li>
+        <li>
+          <strong>Manual Review / Edit</strong>
+          Systematic review for clarity, consistency, completeness, and end-user usability across all operator documentation.
+        </li>
+        <li>
+          <strong>Importer Compliance Review / Edit / Insert</strong>
+          Consistency verification across packaging, labeling, and manuals to support regulatory and importer alignment.
+        </li>
+      </ul>
+    </section>
+
+    <!-- ============================================================
+         RISK FRAMING — liability, torque, degassing, obstruction
+         ============================================================ -->
+    <section aria-labelledby="risk-heading">
+      <h2 id="risk-heading">Documented Risk Areas in Existing Airgun Literature</h2>
+      <p style="margin-bottom:1rem;font-size:0.9rem;color:#555;">
+        The following gap categories are routinely identified during documentation reviews. Unaddressed, each area
+        represents a liability exposure vector for manufacturers and importers.
+      </p>
+      <table class="risk-table" aria-label="Risk area summary">
+        <thead>
+          <tr>
+            <th scope="col">Risk Area</th>
+            <th scope="col">Common Documentation Gap</th>
+            <th scope="col">Liability Exposure</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Torque Specifications</td>
+            <td>Mounting hardware torque values absent or expressed in non-standard units</td>
+            <td>Scope mount failure; accessory detachment under recoil</td>
+          </tr>
+          <tr>
+            <td>Degassing Procedures</td>
+            <td>Ambiguous or absent step-by-step depressurization instructions for PCP and CO&#8322; platforms</td>
+            <td>Uncontrolled pressure release; injury during disassembly or transport</td>
+          </tr>
+          <tr>
+            <td>Obstruction Protocol</td>
+            <td>Barrel obstruction detection and clearance procedure gaps; no pre-fire inspection checklist</td>
+            <td>Projectile-behind-obstruction discharge; barrel damage or personnel injury</td>
+          </tr>
+          <tr>
+            <td>Regulatory &amp; Labeling Consistency</td>
+            <td>Packaging, labeling, and manual safety language inconsistent across import chain</td>
+            <td>Consumer misuse due to conflicting instructions; importer non-compliance</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ============================================================
+         WHO WE SUPPORT
+         ============================================================ -->
+    <div class="two-col">
+      <section aria-labelledby="who-heading">
+        <h2 id="who-heading">Who We Support</h2>
+        <ul>
+          <li>Manufacturers</li>
+          <li>Importers &amp; distributors</li>
+          <li>Retailers &amp; training organizations</li>
+          <li>Responsible airgun owners</li>
+        </ul>
+      </section>
+
+      <!-- ============================================================
+           FEATURED CONTRIBUTOR — hobby content clearly isolated
+           ============================================================ -->
+      <section aria-labelledby="contributor-heading">
+        <h2 id="contributor-heading">Featured Contributor</h2>
+        <div class="contributor-note">
+          <p><strong>Airgun Hobbyist Magazine</strong></p>
+          <p>Byline articles covering safe practices, product education, and responsible ownership. Editorial content is distinct from consulting services offered on this page.</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============================================================
+         HUB LINKS
+         ============================================================ -->
+    <section aria-labelledby="hub-heading">
+      <h2 id="hub-heading">Hub Links</h2>
+      <p style="margin-bottom:0.75rem;">Use the hub for everything, or go direct.</p>
+      <nav class="hub-links" aria-label="External hub links">
+        <a href="https://beacons.ai/nightplinkers" rel="noopener noreferrer" target="_blank">Beacons Hub &rarr;</a>
+        <a href="https://www.streamerloot.co/collections/nightplinkers" rel="noopener noreferrer" target="_blank">Store &rarr;</a>
+      </nav>
+    </section>
+
+    <!-- ============================================================
+         CONTACT & REQUEST FORM — id="np-contact" resolves anchor links
+         ============================================================ -->
+    <section id="np-contact" class="contact-section" aria-labelledby="contact-heading">
+      <h2 id="contact-heading">Request a Documentation Review</h2>
+      <div class="contact-meta">
+        <p>Industry inquiries and collaboration welcome.</p>
+        <p>Email: <a href="mailto:nightplinkers@gmail.com">nightplinkers@gmail.com</a></p>
+        <p style="font-size:0.85rem;color:#555;">This form generates an email draft to Night Plinkers. Attach PDFs or manuals if applicable.</p>
+      </div>
+
+      <!-- Note: mailto: forms have limited browser support for data submission.
+           Replace the action with a server-side or third-party handler (e.g. Formspree)
+           for reliable delivery. The mailto: link below serves as a direct fallback. -->
+      <form action="mailto:nightplinkers@gmail.com" method="POST" enctype="text/plain" aria-label="Documentation review request form">
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label for="np-name">Name <span aria-hidden="true">*</span></label>
+            <input type="text" id="np-name" name="name" required autocomplete="name" placeholder="Full name">
+          </div>
+
+          <div class="form-group">
+            <label for="np-org">Organization <span aria-hidden="true">*</span></label>
+            <input type="text" id="np-org" name="organization" required autocomplete="organization" placeholder="Company or importer name">
+          </div>
+
+          <div class="form-group">
+            <label for="np-email">Email Address <span aria-hidden="true">*</span></label>
+            <input type="email" id="np-email" name="email" required autocomplete="email" placeholder="you@example.com">
+          </div>
+
+          <div class="form-group">
+            <label for="np-service">Service Requested</label>
+            <select id="np-service" name="service">
+              <option value="">— Select a service —</option>
+              <option value="safety-update">Safety Update / Insert / Quick Start</option>
+              <option value="manual-review">Manual Review / Edit</option>
+              <option value="compliance-review">Importer Compliance Review / Edit / Insert</option>
+              <option value="other">Other / Not sure</option>
+            </select>
+          </div>
+
+          <div class="form-group full">
+            <label for="np-message">Project Description</label>
+            <textarea id="np-message" name="message" rows="4" placeholder="Describe the documentation, platform type, and any known gaps or concerns."></textarea>
+          </div>
+
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-submit">Start a Request</button>
+          <a href="mailto:nightplinkers@gmail.com?subject=Sample%20Documentation%20Request&body=Please%20send%20a%20sample%20deliverable%20for%20review." class="btn-sample">Request a Sample Deliverable</a>
+        </div>
+      </form>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    &copy; <span id="yr"></span> Night Plinkers. All rights reserved.
+    <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+  </footer>
+
+</body>
+</html>
