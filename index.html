@@ -82,8 +82,8 @@
           </p>
 
           <nav class="np-cta" aria-label="Primary actions">
-            <a class="np-btn np-primary" href="#np-contact" onclick="npFocusName()">Request a Documentation Review</a>
-            <a class="np-btn" href="#np-contact" onclick="npFocusWithService('sample-request')">Request Sample Work</a>
+            <a class="np-btn np-primary" href="#np-contact" onclick="npFocusName(event)">Request a Documentation Review</a>
+            <a class="np-btn" href="#np-contact" onclick="npFocusWithService('sample-request', event)">Request Sample Work</a>
           </nav>
 
           <!-- ── Risk framing summary ── -->
@@ -256,15 +256,17 @@
 </main>
 
 <script>
-  function npFocusName() {
+  function npFocusName(e) {
+    if (e) e.preventDefault();
+    const section = document.getElementById('np-contact');
+    if (section) section.scrollIntoView({ behavior: 'smooth' });
     const el = document.getElementById('np_name');
-    // Small delay lets the browser finish any anchor-scroll animation before focusing
     if (el) { setTimeout(function(){ el.focus(); }, 80); }
   }
-  function npFocusWithService(val) {
+  function npFocusWithService(val, e) {
     const sel = document.getElementById('np_type');
     if (sel) sel.value = val;
-    npFocusName();
+    npFocusName(e);
   }
 </script>
 </body>
