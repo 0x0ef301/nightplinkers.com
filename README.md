@@ -5,9 +5,10 @@ Night Plinkers website development repo
 
 ## GoDaddy page setup notes
 
-This HTML section is designed to be the **sole content section** on the page. When deploying to GoDaddy Websites + Marketing, remove any GoDaddy-managed template sections that duplicate the content already provided by this HTML block:
+This HTML block is fully self-contained and includes all three page sections:
 
-- **Remove the "About Night Plinkers" section** from the top of the GoDaddy page. The About information (business description, services, and audience) is already present in this HTML section.
-- **Remove the "CONNECT" section** from the bottom of the GoDaddy page. The contact form and external hub links are already present in this HTML section.
+1. **About Night Plinkers** — branded intro at the top
+2. **Main content** — hero, services, risk table, hub links, and contact form
+3. **Connect** — email and external platform links at the bottom
 
-To remove a section in the GoDaddy editor: hover over the section, click the **trash / delete** icon that appears in the section toolbar, then save and publish.
+Paste the full contents of `index.html` into a single GoDaddy Websites + Marketing **HTML section**. No other GoDaddy template sections are needed.

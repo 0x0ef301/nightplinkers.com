@@ -48,7 +48,13 @@
     .np-field{margin-top:12px}
     .np-right .np-row{grid-template-columns:1fr}
     .np-support-icon{display:flex;justify-content:center;align-items:center;margin-top:16px;opacity:.75}
+    .np-about-wrap{padding:28px 0 0}
+    .np-connect-wrap{padding:28px 0;border-top:1px solid #1f2a36;margin-top:8px}
+    .np-connect-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+    .np-section-h2{font-size:28px;margin:8px 0 12px}
+    .np-connect-wrap .np-section-h2{margin-bottom:4px}
     @media (max-width: 900px){
+      .np-connect-grid{grid-template-columns:1fr 1fr}
       .np-hero{grid-template-columns:1fr}
       h1.np-h1{font-size:36px}
       .np-grid2{grid-template-columns:1fr}
@@ -60,6 +66,20 @@
 
 <!-- Night Plinkers Authority Homepage Section (paste into a GoDaddy 'HTML' section) -->
 <main>
+
+  <!-- ══ About Night Plinkers ══════════════════════════════════════════ -->
+  <section class="np-wrap np-about-wrap" aria-labelledby="np-about-title">
+    <div class="np-container">
+      <p class="np-kicker">About</p>
+      <h2 class="np-h2 np-section-h2" id="np-about-title">About Night Plinkers</h2>
+      <p class="np-sub">
+        Night Plinkers is an airgun safety documentation and compliance consulting resource for
+        manufacturers, importers, distributors, and retailers. We specialize in closing liability
+        gaps through modernized safety language, structured degassing procedures, and cross-market
+        regulatory alignment across US, UK, and EU markets.
+      </p>
+    </div>
+  </section>
   <section class="np-wrap" aria-labelledby="np-page-title">
     <div class="np-container">
 
@@ -253,6 +273,24 @@
 
     </div><!-- /.np-container -->
   </section>
+
+  <!-- ══ Connect ═══════════════════════════════════════════════════════ -->
+  <section class="np-wrap np-connect-wrap" id="np-connect" aria-labelledby="np-connect-title">
+    <div class="np-container">
+      <p class="np-kicker">Connect</p>
+      <h2 class="np-h2 np-section-h2" id="np-connect-title">Connect</h2>
+      <p class="np-small">Reach out directly or find Night Plinkers across the web.</p>
+      <div class="np-connect-grid">
+        <a class="np-link" href="mailto:nightplinkers@gmail.com">nightplinkers@gmail.com</a>
+        <a class="np-link" href="https://beacons.ai/nightplinkers" target="_blank" rel="noopener noreferrer">Beacons Hub →</a>
+        <a class="np-link" href="https://www.streamerloot.co/collections/nightplinkers" target="_blank" rel="noopener noreferrer">Store →</a>
+        <a class="np-link" href="https://www.airgunhobbyist.com" target="_blank" rel="noopener noreferrer">Airgun Hobbyist Magazine →</a>
+        <a class="np-link" href="https://hardairmagazine.com/" target="_blank" rel="noopener noreferrer">Hard Air Magazine →</a>
+        <a class="np-link" href="https://homeairgun.nra.org/" target="_blank" rel="noopener noreferrer">NRA's Home Air Gun Program →</a>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <script>
