@@ -41,6 +41,10 @@
     .np-notice a{color:#e7eef7}
     .np-risk-banner{margin-top:16px;padding:14px 16px;border-radius:12px;border:1px solid rgba(255,180,0,.28);background:rgba(255,180,0,.07);color:#a9b7c6}
     .np-risk-banner strong{color:#e7eef7}
+    .np-risk-table{width:100%;border-collapse:collapse;margin-top:10px;font-size:13px}
+    .np-risk-table th{background:rgba(255,180,0,.18);color:#e7eef7;padding:8px 10px;text-align:left;border-bottom:1px solid rgba(255,180,0,.3)}
+    .np-risk-table td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.06);vertical-align:top;color:#a9b7c6}
+    .np-risk-table tr:last-child td{border-bottom:none}
     .np-field{margin-top:12px}
     @media (max-width: 900px){
       .np-hero{grid-template-columns:1fr}
@@ -83,12 +87,37 @@
           <!-- ── Risk framing summary ── -->
           <div class="np-risk-banner" role="note" aria-label="Documentation risk summary">
             <strong>Common documentation gaps that create liability exposure:</strong>
-            <ul class="np-list" style="margin-top:10px">
-              <li>Ambiguous or absent degassing procedures (CO<sub>2</sub> and PCP platforms)</li>
-              <li>Missing or unspecified torque values for user-serviceable components</li>
-              <li>Obstruction-detection and barrel-clearing protocol gaps</li>
-              <li>Inconsistent safety language across packaging, manuals, and labeling</li>
-            </ul>
+            <table class="np-risk-table" aria-label="Risk area summary">
+              <thead>
+                <tr>
+                  <th scope="col">Risk Area</th>
+                  <th scope="col">Common Documentation Gap</th>
+                  <th scope="col">Liability Exposure</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Torque Specifications</td>
+                  <td>Mounting hardware torque values absent or expressed in non-standard units</td>
+                  <td>Scope mount failure; accessory detachment under recoil</td>
+                </tr>
+                <tr>
+                  <td>Degassing Procedures</td>
+                  <td>Ambiguous or absent step-by-step depressurization for PCP and CO<sub>2</sub> platforms</td>
+                  <td>Uncontrolled pressure release; injury during disassembly or transport</td>
+                </tr>
+                <tr>
+                  <td>Obstruction Protocol</td>
+                  <td>Barrel obstruction detection and clearance gaps; no pre-fire inspection checklist</td>
+                  <td>Projectile-behind-obstruction discharge; barrel damage or personnel injury</td>
+                </tr>
+                <tr>
+                  <td>Regulatory &amp; Labeling Consistency</td>
+                  <td>Packaging, labeling, and manual safety language inconsistent across import chain</td>
+                  <td>Consumer misuse due to conflicting instructions; importer non-compliance</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
 
           <!-- ── Two-column service/audience grid ── -->
@@ -126,6 +155,7 @@
           <div class="np-strip" role="complementary" aria-label="Media credentials">
             <p class="np-strip-title">Featured contributor</p>
             <p class="np-small" style="margin:0">Airgun Hobbyist Magazine · Byline articles · Education-focused editorial</p>
+            <p class="np-small" style="margin-top:4px"><em>Editorial content is distinct from the consulting services offered on this page.</em></p>
           </div>
         </div><!-- /.np-left -->
 
@@ -183,6 +213,9 @@
               method="post"
               enctype="text/plain"
               aria-label="Documentation review request form">
+          <!-- Note: mailto: forms have limited cross-browser support for data submission.
+               Replace the action with a server-side or third-party handler (e.g. Formspree)
+               for reliable delivery. The mailto: link below serves as a direct fallback. -->
 
           <div class="np-row">
             <div>
