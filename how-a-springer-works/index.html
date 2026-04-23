@@ -302,7 +302,25 @@
       <ellipse cx="477" cy="75" rx="5"  ry="10" fill="#78909c"/>
     </g>
     
-    <path id="ppFlow" d="M216 75 Q330 55 432 75" stroke="#4fc3f7" stroke-width="1.5" fill="none" stroke-dasharray="8 6" stroke-dashoffset="200" opacity="0"/>
+    <path id="ppFlowLegacy" d="" fill="none"/>
+    
+    <!-- Air blast visible when FIRED: arrows from compression chamber through barrel behind pellet -->
+    <g id="ppFlow" opacity="0">
+      <!-- Air column in compression chamber rushing right -->
+      <line x1="220" y1="72" x2="418" y2="72" stroke="#4fc3f7" stroke-width="1.8" opacity=".75"/>
+      <line x1="220" y1="78" x2="418" y2="78" stroke="#4fc3f7" stroke-width="1.8" opacity=".55"/>
+      <!-- Arrow head at transfer port entry -->
+      <polygon points="413,67 430,75 413,83" fill="#4fc3f7" opacity=".85"/>
+      <!-- Arrows inside barrel pushing pellet -->
+      <line x1="451" y1="70" x2="464" y2="70" stroke="#4fc3f7" stroke-width="1.5" opacity=".9"/>
+      <polygon points="461,67 470,70 461,73" fill="#4fc3f7"/>
+      <line x1="451" y1="75" x2="462" y2="75" stroke="#4fc3f7" stroke-width="1.5" opacity=".9"/>
+      <polygon points="459,72 468,75 459,78" fill="#4fc3f7"/>
+      <line x1="451" y1="80" x2="464" y2="80" stroke="#4fc3f7" stroke-width="1.5" opacity=".7"/>
+      <polygon points="461,77 470,80 461,83" fill="#4fc3f7"/>
+      <!-- HIGH PRESSURE label -->
+      <text x="318" y="50" text-anchor="middle" font-family="DM Mono,monospace" font-size="8.5" fill="#4fc3f7" letter-spacing="1">HIGH PRESSURE →</text>
+    </g>
     
     <circle id="ppEx1" cx="667" cy="75" r="0" fill="rgba(79,195,247,.4)" opacity="0"/>
     <circle id="ppEx2" cx="667" cy="75" r="0" fill="rgba(79,195,247,.2)" opacity="0"/>
@@ -821,9 +839,7 @@ fired=true;
 el('ppBtn').disabled=true;
 el('ppBtn').textContent='💥 FIRED!';
 setPill('FIRING — pressure releases through barrel','rgba(239,83,80,.15)','rgba(239,83,80,.4)','#ef5350');
-const fp=el('ppFlow');fp.style.opacity='1';
-let off=200;
-const fa=setInterval(()=>{off-=8;fp.setAttribute('stroke-dashoffset',off);if(off<=0)clearInterval(fa);},20);
+const fp=el('ppFlow');fp.style.transition='opacity .25s';fp.style.opacity='1';
 setTimeout(()=>{
 const pg=el('ppPellet');
 pg.style.transition='transform .5s ease-in,opacity .5s';
@@ -856,7 +872,7 @@ pumpCount=0;fired=false;
 el('ppBtn').disabled=false;el('ppBtn').textContent='PUMP';
 const pg=el('ppPiston');pg.style.transform='';
 const pl=el('ppPellet');pl.style.transform='';pl.style.opacity='1';
-const fp=el('ppFlow');fp.style.opacity='0';fp.setAttribute('stroke-dashoffset','200');
+const fp=el('ppFlow');fp.style.transition='';fp.style.opacity='0';
 ['ppEx1','ppEx2'].forEach(id=>{const e=el(id);e.setAttribute('r','0');e.style.opacity='0';});
 const cl=el('ppChLabel');if(cl){cl.textContent='COMPRESSION CHAMBER';cl.setAttribute('fill','#4fc3f7');}
 setPill('READY — pump to pressurize','rgba(240,165,0,.12)','rgba(240,165,0,.3)','#f0a500');
@@ -981,10 +997,13 @@ setGunType('spring');
   <div class="phys-head">⚡ WHY IT GETS SO HOT</div>
   The air gets squeezed so fast (~4 ms) that the heat has nowhere to go. All that spring energy turns into heat inside the air. Pressure shoots from <strong>1 bar to 50–150 bar</strong> in milliseconds.
   <br><br>
-  <div class="phys-head" style="margin-top:.3rem">📐 THE PHYSICS (for the curious!)</div>
-  Halve the air space → double the pressure: <span class="phys-eq">P × V = constant</span><br>
-  Compressed air temperature formula: <span class="phys-eq">T₂ = T₁·(V₁/V₂)<sup>0.4</sup></span><br>
-  (0.4 is a fixed property of air)
+  <div class="phys-head" style="margin-top:.3rem">📐 THE LAWS AT WORK</div>
+  <span class="phys-eq" style="color:#4fc3f7">Boyle’s Law</span> &mdash; pressure and volume are opposites:<br>
+  &nbsp;&nbsp;P₁ × V₁ = P₂ × V₂ &nbsp;(⇒ halve space = double pressure)<br>
+  <br>
+  <span class="phys-eq" style="color:#ef5350">Adiabatic Compression</span> &mdash; too fast for heat to escape:<br>
+  &nbsp;&nbsp;T₂ = T₁ × (V₁/V₂)<sup>0.4</sup> &nbsp;(⇒ explains the heat spike)<br>
+  <span style="color:#8b949e;font-size:.72rem">(Adiabatic = “no heat transfer” &mdash; compression happens in ~4 ms)</span>
   <br><br>
   <div class="phys-head" style="margin-top:.3rem">🌡️ ACTUAL TEMPERATURES</div>
   <table style="width:100%;font-size:.78rem;border-collapse:collapse;font-family:'DM Mono',monospace">
