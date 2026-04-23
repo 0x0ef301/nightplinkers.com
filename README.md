@@ -1,96 +1,44 @@
-# nightplinkers.com
+# Night Plinkers (GoDaddy Websites + Marketing) — Authority Homepage Section
 
-Night Plinkers website development repo — airgun safety documentation and compliance consulting.
+## What this is
+A **single self-contained HTML section** designed specifically for GoDaddy Websites + Marketing (site builder).
 
----
-
-## Repository contents
-
+## Files
 | File | Purpose |
-|------|---------|
-| `index.html` | The complete website — all HTML, CSS, and inline JavaScript in one file |
-| `README.md` | This file |
+|---|---|
+| `godaddy_html_section.txt` | **Paste this into a GoDaddy HTML section** (no document wrappers) |
+| `index.html` | Full standalone page — local preview + source of truth |
+| `index.html.bak` | Backup of previous production version (2026-04-22) |
+| `godaddy_html_section.txt.bak` | Backup of previous section file (2026-04-22) |
 
----
+## What's new in this revision
+- Revised headline and sub-copy — liability-gap framing for B2B audience
+- Risk-table banner (torque specs, degassing, obstruction protocol, regulatory gaps)
+- "Request Sample Work" CTA with auto-select of service type in the form
+- "Platform type" field added to the contact form
+- New sidebar links: Hard Air Magazine, NRA Home Air Gun Program
+- "How a Springer Works" interactive guide section with SVG diagrams and JavaScript
+- Accessibility improvements: ARIA labels, focus styles, semantic headings
+- CSS custom properties scoped correctly to `#how-airguns-work`
 
-## Editing the site
+## GoDaddy Websites + Marketing steps (exact)
+1. Log into GoDaddy → open **Websites + Marketing** for your site.
+2. Click **Edit Website**.
+3. Navigate to your **Home** page.
+4. Click **Add Section** → choose **HTML** (sometimes called "Custom Code" or "HTML").
+5. Click into the HTML section → **paste the entire contents** of `godaddy_html_section.txt`.
+6. Click **Done** / **Save**.
+7. Preview on mobile + desktop — confirm the interactive guide buttons work.
+8. Click **Publish**.
 
-Open **`index.html`** in any text editor (VS Code, Notepad++, etc.) and make your changes.  
-All content, styles (`<style>` block in `<head>`), and scripts are contained in this single file — there are no separate CSS or JS files to maintain.
+## Notes
+- The form uses `mailto:nightplinkers@gmail.com`. This generates an email draft in the visitor's email client.
+- If you want a true web form submission (no email client), we can swap to a form provider compatible with GoDaddy W+M.
+- The interactive guide uses inline JavaScript. GoDaddy W+M allows JS in HTML sections; test after publishing.
 
-Key sections inside `index.html`:
-
-- **`<style>` block** — all CSS classes (prefixed `np-`); edit colors, spacing, and layout here.
-- **Hero / above-the-fold** — headline, subhead, and CTA buttons near the top of `<body>`.
-- **Services cards** — the `<ul class="np-list">` blocks listing documentation services.
-- **Risk table** — the `<table class="np-risk-table">` summarizing common liability gaps.
-- **Contact form** — the `<section id="np-contact">` section at the bottom.
-
----
-
-## Deploying to GoDaddy Websites + Marketing
-
-GoDaddy Websites + Marketing lets you drop raw HTML into a page using an **HTML section**.  
-Follow these steps each time you want to push an update live.
-
-### Step 1 — Open the file
-
-1. Open `index.html` from this repository in your text editor.
-2. Press **Ctrl + A** (Windows/Linux) or **Cmd + A** (macOS) to select all of the file's contents.
-3. Press **Ctrl + C** / **Cmd + C** to copy everything to your clipboard.
-
-### Step 2 — Log in to GoDaddy
-
-1. Go to [godaddy.com](https://www.godaddy.com) and sign in to your account.
-2. From the GoDaddy dashboard, open **Websites + Marketing**.
-3. Click **Edit Website** (or **Edit Site**) next to your nightplinkers.com site to open the site editor.
-
-### Step 3 — Open the HTML section
-
-1. In the GoDaddy site editor, click on the page section that contains the Night Plinkers content.  
-   *(If no HTML section exists yet, click **Add Section → HTML** to insert one.)*
-2. Click the **`< >`** or **HTML** button that appears in the section toolbar to open the HTML editor panel.
-
-### Step 4 — Replace the existing HTML
-
-1. Inside the HTML editor panel, press **Ctrl + A** / **Cmd + A** to select all existing content.
-2. Press **Ctrl + V** / **Cmd + V** to paste the content you copied from `index.html`.
-3. Click **Save** or **Done** within the HTML editor panel to apply the new markup.
-
-### Step 5 — Preview and publish
-
-1. Click **Preview** in the GoDaddy editor toolbar to verify the page looks correct at desktop and mobile widths.
-2. When satisfied, click **Publish** to push the changes live to nightplinkers.com.
-
-> **Tip:** GoDaddy may strip the outer `<!DOCTYPE html>`, `<html>`, `<head>`, and `<body>` wrapper tags because it manages those itself. That is expected — the `<style>` block and everything inside `<body>` will be preserved and will render correctly.
-
----
-
-## Local preview
-
-You can preview changes before copying to GoDaddy by opening `index.html` directly in a browser:
-
-```
-# macOS
-open index.html
-
-# Windows (PowerShell)
-start index.html
-
-# Linux
-xdg-open index.html
-```
-
-Check the layout at both a wide viewport (≥ 900 px) and a narrow viewport (< 900 px) to confirm the responsive grid collapses correctly.
-
----
-
-## Validation checklist
-
-Before publishing, confirm:
-
-- [ ] All internal anchor links (`#np-contact`, `#np-sample`) scroll to the correct sections.
-- [ ] The **"Generate Email"** button on the contact form opens a pre-populated `mailto:` link.
-- [ ] Layout looks correct on desktop (≥ 900 px) and mobile (< 900 px).
-- [ ] No broken images or missing content.
-- [ ] HTML passes the [W3C Markup Validator](https://validator.w3.org/#validate_by_input) (paste the full file contents into the "Validate by Direct Input" tab).
+## Links embedded
+Beacons: https://beacons.ai/nightplinkers
+Store: https://www.streamerloot.co/collections/nightplinkers
+Airgun Hobbyist: https://www.airgunhobbyist.com
+Hard Air Magazine: https://hardairmagazine.com/
+NRA Home Air Gun Program: https://homeairgun.nra.org/
