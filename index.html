@@ -48,46 +48,212 @@
 </head>
 <body>
 
-<section id="np-about" style="background:#0b0f14;padding:56px 18px 48px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:#e7eef7;">
-  <style>
-    #np-about h2.np-about-title{text-align:center;font-size:clamp(26px,5vw,42px);font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:#32ff6a;margin:0 0 48px}
-    #np-about .np-about-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:36px;max-width:1000px;margin:0 auto}
-    #np-about .np-about-card{display:flex;flex-direction:column;align-items:center;text-align:center}
-    #np-about .np-about-img-wrap{width:220px;height:220px;border-radius:50%;overflow:hidden;border:3px solid #1f2a36;flex-shrink:0;margin-bottom:24px}
-    #np-about .np-about-img-wrap img{width:100%;height:100%;object-fit:cover;display:block}
-    #np-about .np-about-card-title{color:#32ff6a;font-size:18px;font-weight:700;margin:0 0 12px}
-    #np-about .np-about-card-text{color:#a9b7c6;font-size:14px;line-height:1.65;margin:0}
-    #np-about .np-trusted{text-align:center;margin-top:40px}
-    @media(max-width:700px){#np-about .np-about-grid{grid-template-columns:1fr}#np-about .np-about-img-wrap{width:180px;height:180px}}
-  </style>
-  <h2 class="np-about-title">About Night Plinkers</h2>
+<style>
+#np-about {
+  position: relative;
+  background: #0b0f14;
+  font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+  color: #e7eef7;
+  overflow: hidden;
+}
+#np-about::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(50,255,106,0.07) 0%, transparent 70%),
+    repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(50,255,106,0.012) 3px, rgba(50,255,106,0.012) 4px);
+  pointer-events: none;
+  z-index: 0;
+}
+#np-about > * { position: relative; z-index: 1; }
+
+.np-about-eyebrow {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(50,255,106,0.6);
+  padding-top: 64px;
+  margin-bottom: 10px;
+}
+.np-about-title-wrap {
+  text-align: center;
+  margin-bottom: 16px;
+}
+.np-about-title-wrap h2 {
+  font-size: clamp(32px,6vw,56px);
+  font-weight: 900;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0;
+  line-height: 1;
+}
+.np-about-title-wrap h2 span { color: #32ff6a; }
+.np-about-tagline {
+  text-align: center;
+  font-size: 15px;
+  color: #6a8090;
+  letter-spacing: .04em;
+  margin-bottom: 8px;
+}
+.np-about-rule {
+  display: block;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #32ff6a, transparent);
+  margin: 0 auto 56px;
+  animation: np-rule-pulse 3s ease-in-out infinite;
+}
+@keyframes np-rule-pulse {
+  0%,100% { opacity:.4; width:60px; }
+  50% { opacity:1; width:120px; }
+}
+
+.np-about-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 28px;
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.np-about-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(160deg, rgba(255,255,255,.03) 0%, rgba(255,255,255,.01) 100%);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 16px;
+  padding: 36px 24px 32px;
+  transition: transform .25s, border-color .25s, box-shadow .25s;
+}
+.np-about-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(50,255,106,.3);
+  box-shadow: 0 16px 48px rgba(0,0,0,.5), 0 0 24px rgba(50,255,106,.06);
+}
+.np-about-img-ring {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin-bottom: 28px;
+  flex-shrink: 0;
+}
+.np-about-img-ring::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: conic-gradient(#32ff6a 0deg, rgba(50,255,106,.1) 180deg, #32ff6a 360deg);
+  animation: np-ring-spin 8s linear infinite;
+  z-index: 0;
+}
+.np-about-img-ring::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  background: #0b0f14;
+  z-index: 1;
+}
+@keyframes np-ring-spin { to { transform: rotate(360deg); } }
+.np-about-img-ring img {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+.np-about-card-num {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(50,255,106,.5);
+  margin-bottom: 8px;
+}
+.np-about-card-title {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 800;
+  margin: 0 0 14px;
+  letter-spacing: .02em;
+}
+.np-about-card-title span { color: #32ff6a; }
+.np-about-card-text {
+  color: #7a92a8;
+  font-size: 14px;
+  line-height: 1.7;
+  margin: 0;
+}
+.np-about-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 40px 24px 52px;
+  border-top: 1px solid rgba(255,255,255,.05);
+  margin-top: 52px;
+}
+.np-about-footer-text {
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.2);
+}
+@media(max-width:800px) {
+  .np-about-grid { grid-template-columns: 1fr; max-width: 440px; }
+  .np-about-img-ring { width:170px; height:170px; }
+}
+</style>
+
+<section id="np-about">
+  <div class="np-about-eyebrow">Night Plinkers &nbsp;/&nbsp; Airgun Documentation Specialists</div>
+  <div class="np-about-title-wrap">
+    <h2>About <span>Night Plinkers</span></h2>
+  </div>
+  <p class="np-about-tagline">Structured documentation governance for the modern airgun industry</p>
+  <span class="np-about-rule"></span>
+
   <div class="np-about-grid">
     <div class="np-about-card">
-      <div class="np-about-img-wrap">
+      <div class="np-about-img-ring">
         <img src="images/mission.jpg" alt="Modern Pneumatic Airgun book">
       </div>
-      <div class="np-about-card-title">Our Mission</div>
+      <div class="np-about-card-num">01 &mdash; Mission</div>
+      <div class="np-about-card-title">Our <span>Mission</span></div>
       <p class="np-about-card-text">Our mission is to modernize airgun documentation through clarity, precision, and structured standards. We align engineering intent with consistent service and customer guidance. Our work supports stronger documentation practices across the industry.</p>
     </div>
     <div class="np-about-card">
-      <div class="np-about-img-wrap">
+      <div class="np-about-img-ring">
         <img src="images/services.jpg" alt="Airgun safety and operations documentation">
       </div>
-      <div class="np-about-card-title">Our Services</div>
-      <p class="np-about-card-text">We provide documentation modernization services for airgun manufacturers, importers, and private-label brands. Services include manual audits, torque specification frameworks, procedural refinement, safety bulletin development, and structured redline revision packages. Deliverables reduce ambiguity and mitigate preventable service and liability risk.</p>
+      <div class="np-about-card-num">02 &mdash; Services</div>
+      <div class="np-about-card-title">Our <span>Services</span></div>
+      <p class="np-about-card-text">We provide documentation modernization services for airgun manufacturers, importers, and private-label brands. Services include manual audits, torque specification frameworks, procedural refinement, safety bulletin development, and structured redline revision packages.</p>
     </div>
     <div class="np-about-card">
-      <div class="np-about-img-wrap">
+      <div class="np-about-img-ring">
         <img src="images/expertise.jpg" alt="Documentation modernization expertise diagram">
       </div>
-      <div class="np-about-card-title">Our Expertise</div>
-      <p class="np-about-card-text">Night Plinkers applies structured documentation governance to complex airgun platforms. We identify procedural ambiguity, missing technical specifications, inconsistencies between manuals and public guidance. Our approach aligns engineering intent with clear, liability-aware instructions to reduce preventable service errors and risk exposure.</p>
+      <div class="np-about-card-num">03 &mdash; Expertise</div>
+      <div class="np-about-card-title">Our <span>Expertise</span></div>
+      <p class="np-about-card-text">Night Plinkers applies structured documentation governance to complex airgun platforms. We identify procedural ambiguity, missing technical specifications, and inconsistencies between manuals and public guidance — aligning engineering intent with liability-aware instructions.</p>
     </div>
   </div>
-  <div class="np-trusted">
+
+  <div class="np-about-footer">
+    <span class="np-about-footer-text">Verified &amp; Trusted</span>
     <a href="https://www.trustedsite.com" target="_blank" rel="noopener noreferrer">
-      <img src="https://cdn.ywxi.net/meter/nightplinkers.com/101.svg" alt="TrustedSite" width="100" height="26" style="vertical-align:middle">
+      <img src="https://cdn.ywxi.net/meter/nightplinkers.com/101.svg" alt="TrustedSite Certified" width="110" height="28" style="display:block;vertical-align:middle">
     </a>
+    <span class="np-about-footer-text">nightplinkers.com</span>
   </div>
 </section>
 
