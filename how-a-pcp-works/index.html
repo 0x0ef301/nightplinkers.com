@@ -1279,12 +1279,12 @@
   <h2 class="np-section-title">The Big Idea: Stored Air <span>Becomes Motion</span></h2>
   <p class="np-lead">A PCP airgun is called <strong>pre-charged pneumatic</strong> because its air is charged, or filled, before shooting. The air sits in a pressure vessel until the mechanism releases a controlled amount.</p>
   <div class="np-flow" id="np-flow">
-    <div class="np-step active">1. Fill with air</div><div class="np-arrow">→</div>
-    <div class="np-step">2. Store pressure</div><div class="np-arrow">→</div>
-    <div class="np-step">3. Regulate air</div><div class="np-arrow">→</div>
-    <div class="np-step">4. Open valve</div><div class="np-arrow">→</div>
-    <div class="np-step">5. Push pellet</div><div class="np-arrow">→</div>
-    <div class="np-step">6. Pellet exits barrel</div>
+    <button class="np-step active">1. Fill with air</button><div class="np-arrow">→</div>
+    <button class="np-step">2. Store pressure</button><div class="np-arrow">→</div>
+    <button class="np-step">3. Regulate air</button><div class="np-arrow">→</div>
+    <button class="np-step">4. Open valve</button><div class="np-arrow">→</div>
+    <button class="np-step">5. Push pellet</button><div class="np-arrow">→</div>
+    <button class="np-step">6. Pellet exits barrel</button>
   </div>
   <div style="display:flex;gap:10px;flex-wrap:wrap;margin:14px 0;">
     <button class="np-btn" id="np-playFlow">&#9654; Animate Airflow</button>
@@ -1301,7 +1301,7 @@
     <rect x="590" y="108" width="250" height="34" rx="17" fill="#111827" stroke="#4a5568"/>
     <text x="715" y="98" fill="#e5e7eb" text-anchor="middle" font-size="14">Barrel</text>
     <circle class="np-pellet-dot" id="np-flow-pellet" cx="615" cy="125" r="12"/>
-    <text x="615" y="166" fill="#f0a500" text-anchor="middle" font-size="13">pellet</text>
+    <text id="np-pellet-label" x="615" y="166" fill="#f0a500" text-anchor="middle" font-size="13">pellet</text>
     <path d="M275 125 H310 M420 125 H455 M550 125 H590" stroke="#4fc3f7" stroke-width="5" fill="none" marker-end="url(#np-arr)" stroke-dasharray="10 12" opacity=".65"/>
     <g id="np-dots"></g>
   </svg>
@@ -1723,9 +1723,11 @@
 #np-pcp-guide .np-flow .np-step {
   background: var(--panel); border: 1px solid var(--border);
   border-radius: 14px; padding: 12px 14px; min-width: 140px;
-  text-align: center; transition: .25s transform, .25s background;
+  text-align: center; transition: .25s transform, .25s background, .25s border-color;
   color: var(--text);
+  cursor: pointer; font-family: inherit; font-size: inherit;
 }
+#np-pcp-guide .np-flow .np-step:hover { border-color: var(--blue); }
 #np-pcp-guide .np-flow .np-step.active {
   background: #0f3b57; transform: translateY(-4px); outline: 2px solid var(--blue);
 }
@@ -2266,64 +2268,124 @@ window.npToggleAcc = function(btn) {
   });
 })();
 
-/* ── S10: FLOW ANIMATION ─────────────────────────────────────── */
+/* ── S7: FLOW ANIMATION ─────────────────────────────────────── */
 (function() {
-  var flowEl = document.getElementById('np-flow');
+  var flowEl  = document.getElementById('np-flow');
   var playBtn = document.getElementById('np-playFlow');
   var resetBtn = document.getElementById('np-resetFlow');
   if (!flowEl || !playBtn) return;
 
   var steps = Array.from(flowEl.querySelectorAll('.np-step'));
-  var timers = [];
+  var stepTimers = [], dotTimers = [], dotRafs = [];
+  var pelletTimer = null, pelletRaf = null;
+
+  /* ── cancel everything in flight ── */
+  function cancelAll() {
+    stepTimers.forEach(clearTimeout); stepTimers = [];
+    dotTimers.forEach(clearTimeout);  dotTimers  = [];
+    dotRafs.forEach(cancelAnimationFrame); dotRafs = [];
+    if (pelletTimer) { clearTimeout(pelletTimer); pelletTimer = null; }
+    if (pelletRaf)   { cancelAnimationFrame(pelletRaf); pelletRaf = null; }
+    var g = document.getElementById('np-dots');
+    if (g) g.innerHTML = '';
+  }
+
+  /* ── snap pellet back to start ── */
+  function resetPellet() {
+    var p = document.getElementById('np-flow-pellet');
+    var l = document.getElementById('np-pellet-label');
+    if (p) p.setAttribute('cx', '615');
+    if (l) l.setAttribute('x', '615');
+  }
 
   function setStep(i) {
     steps.forEach(function(s, n) { s.classList.toggle('active', n === i); });
   }
 
+  /* ── animate air dots via rAF (SVG user-unit safe) ── */
   function animateDots() {
     var g = document.getElementById('np-dots');
     if (!g) return;
     g.innerHTML = '';
-    for (var i = 0; i < 18; i++) {
-      (function(i) {
+    for (var i = 0; i < 14; i++) {
+      (function(idx) {
         var c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
         c.setAttribute('r', '5');
-        c.setAttribute('cy', String(115 + Math.random() * 20));
+        c.setAttribute('cy', String(112 + Math.random() * 18));
         c.setAttribute('cx', '70');
         c.setAttribute('class', 'np-airdot');
         g.appendChild(c);
-        c.animate(
-          [{transform: 'translateX(0px)', opacity: .2}, {transform: 'translateX(720px)', opacity: 1}],
-          {duration: 2600, delay: i * 70, fill: 'forwards', easing: 'ease-in-out'}
-        );
+        var t = setTimeout(function() {
+          var s = null, dur = 2400;
+          function frame(ts) {
+            if (!s) s = ts;
+            var prog = Math.min((ts - s) / dur, 1);
+            c.setAttribute('cx',      String(70 + 720 * prog));
+            c.setAttribute('opacity', String(0.15 + prog * 0.85));
+            if (prog < 1) { var r = requestAnimationFrame(frame); dotRafs.push(r); }
+          }
+          var r = requestAnimationFrame(frame); dotRafs.push(r);
+        }, idx * 80);
+        dotTimers.push(t);
       })(i);
     }
   }
 
+  /* ── animate pellet via rAF ── */
   function animatePellet() {
-    var pellet = document.getElementById('np-flow-pellet');
-    if (!pellet) return;
-    pellet.animate([{cx: 615}, {cx: 835}], {duration: 1600, delay: 2400, fill: 'forwards', easing: 'ease-in'});
-    setTimeout(function() { pellet.setAttribute('cx', '835'); }, 4050);
+    pelletTimer = setTimeout(function() {
+      pelletTimer = null;
+      var p = document.getElementById('np-flow-pellet');
+      var l = document.getElementById('np-pellet-label');
+      if (!p) return;
+      var s = null, dur = 1400, sx = 615, ex = 845;
+      function frame(ts) {
+        if (!s) s = ts;
+        var t = Math.min((ts - s) / dur, 1);
+        var cx = sx + (ex - sx) * t * t;  /* ease-in */
+        p.setAttribute('cx', String(cx));
+        if (l) l.setAttribute('x', String(cx));
+        if (t < 1) { pelletRaf = requestAnimationFrame(frame); }
+        else { pelletRaf = null; }
+      }
+      pelletRaf = requestAnimationFrame(frame);
+    }, 2200);
   }
 
-  playBtn.addEventListener('click', function() {
-    timers.forEach(clearTimeout); timers = [];
-    for (var i = 0; i < steps.length; i++) {
-      (function(i) { timers.push(setTimeout(function() { setStep(i); }, i * 700)); })(i);
-    }
+  /* ── run the full sequence ── */
+  function runAnimation() {
+    cancelAll();
+    resetPellet();
+    playBtn.disabled = true;
+    setStep(0);
+    steps.forEach(function(_, i) {
+      stepTimers.push(setTimeout(function() { setStep(i); }, i * 700));
+    });
     animateDots();
     animatePellet();
+  }
+
+  /* ── step buttons: click to highlight, re-enable animate ── */
+  steps.forEach(function(step, i) {
+    step.addEventListener('click', function() {
+      cancelAll();
+      resetPellet();
+      setStep(i);
+      playBtn.disabled = false;
+    });
   });
 
+  playBtn.addEventListener('click', function() { runAnimation(); });
+
   resetBtn.addEventListener('click', function() {
-    timers.forEach(clearTimeout);
+    cancelAll();
+    resetPellet();
     setStep(0);
-    var g = document.getElementById('np-dots');
-    if (g) g.innerHTML = '';
-    var pellet = document.getElementById('np-flow-pellet');
-    if (pellet) pellet.setAttribute('cx', '615');
+    playBtn.disabled = false;
   });
+
+  /* ── auto-play on load ── */
+  runAnimation();
 })();
 
 /* ── S12: QUIZ ───────────────────────────────────────────────── */
