@@ -1304,6 +1304,7 @@
     <text id="np-pellet-label" x="615" y="166" fill="#f0a500" text-anchor="middle" font-size="13">pellet</text>
     <path d="M275 125 H310 M420 125 H455 M550 125 H590" stroke="#4fc3f7" stroke-width="5" fill="none" marker-end="url(#np-arr)" stroke-dasharray="10 12" opacity=".65"/>
     <g id="np-dots"></g>
+    <g id="np-muzzle-blast"></g>
   </svg>
 </div>
 </div>
@@ -2270,122 +2271,223 @@ window.npToggleAcc = function(btn) {
 
 /* ── S7: FLOW ANIMATION ─────────────────────────────────────── */
 (function() {
-  var flowEl  = document.getElementById('np-flow');
-  var playBtn = document.getElementById('np-playFlow');
+  var flowEl   = document.getElementById('np-flow');
+  var playBtn  = document.getElementById('np-playFlow');
   var resetBtn = document.getElementById('np-resetFlow');
   if (!flowEl || !playBtn) return;
 
+  var PELLET_R    = 12;
+  var PELLET_HOME = 615;
+  var MUZZLE_X    = 840;   /* barrel end x in SVG units */
   var steps = Array.from(flowEl.querySelectorAll('.np-step'));
-  var stepTimers = [], dotTimers = [], dotRafs = [];
-  var pelletTimer = null, pelletRaf = null;
+  var timers = [], rafs = [];
 
-  /* ── cancel everything in flight ── */
+  /* ── muzzle rays: built once, opacity-driven (no flicker) ── */
+  var muzzleLines = [];
+  (function() {
+    var m = document.getElementById('np-muzzle-blast');
+    if (!m) return;
+    for (var i = 0; i < 12; i++) {
+      var a  = (i / 12) * Math.PI * 2;
+      var r1 = 14, r2 = 22 + (i % 4) * 8;
+      var ln = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      ln.setAttribute('x1', String(MUZZLE_X + Math.cos(a) * r1));
+      ln.setAttribute('y1', String(125      + Math.sin(a) * r1));
+      ln.setAttribute('x2', String(MUZZLE_X + Math.cos(a) * r2));
+      ln.setAttribute('y2', String(125      + Math.sin(a) * r2));
+      ln.setAttribute('stroke', '#4fc3f7');
+      ln.setAttribute('stroke-width', '2.5');
+      ln.setAttribute('opacity', '0');
+      m.appendChild(ln);
+      muzzleLines.push(ln);
+    }
+  })();
+  function setMuzzle(o) {
+    muzzleLines.forEach(function(l) { l.setAttribute('opacity', String(o)); });
+  }
+
   function cancelAll() {
-    stepTimers.forEach(clearTimeout); stepTimers = [];
-    dotTimers.forEach(clearTimeout);  dotTimers  = [];
-    dotRafs.forEach(cancelAnimationFrame); dotRafs = [];
-    if (pelletTimer) { clearTimeout(pelletTimer); pelletTimer = null; }
-    if (pelletRaf)   { cancelAnimationFrame(pelletRaf); pelletRaf = null; }
-    var g = document.getElementById('np-dots');
-    if (g) g.innerHTML = '';
+    timers.forEach(clearTimeout);       timers = [];
+    rafs.forEach(cancelAnimationFrame); rafs   = [];
   }
 
-  /* ── snap pellet back to start ── */
-  function resetPellet() {
-    var p = document.getElementById('np-flow-pellet');
-    var l = document.getElementById('np-pellet-label');
-    if (p) p.setAttribute('cx', '615');
-    if (l) l.setAttribute('x', '615');
+  function setPellet(cx) {
+    var vis = cx < MUZZLE_X + 8 ? '1' : '0';
+    var p  = document.getElementById('np-flow-pellet');
+    var lb = document.getElementById('np-pellet-label');
+    if (p)  { p.setAttribute('cx',  String(cx)); p.setAttribute('opacity',  vis); }
+    if (lb) { lb.setAttribute('x',  String(cx)); lb.setAttribute('opacity', vis); }
   }
 
-  function setStep(i) {
+  function setActive(i) {
     steps.forEach(function(s, n) { s.classList.toggle('active', n === i); });
   }
 
-  /* ── animate air dots via rAF (SVG user-unit safe) ── */
-  function animateDots() {
+  /* ── static snapshots shown when a step button is clicked ──
+     bands: [xMin, xMax, count, yCentre, ySpread]               */
+  var POSES = [
+    { cx: 615, bands: [[ 70, 270, 10, 125, 18]], muzzle: 0    }, /* 1 Fill      */
+    { cx: 615, bands: [[ 70, 270, 16, 125, 18]], muzzle: 0    }, /* 2 Store     */
+    { cx: 615, bands: [[ 70, 420, 14, 125, 18]], muzzle: 0    }, /* 3 Regulate  */
+    { cx: 615, bands: [[220, 603, 14, 125, 18]], muzzle: 0    }, /* 4 Valve     */
+    { cx: 720, bands: [[370, 708, 14, 125, 18]], muzzle: 0    }, /* 5 Push      */
+    { cx: 885, bands: [[590, 875, 18, 125, 55]], muzzle: 0.75 }, /* 6 Exit      */
+  ];
+
+  function showPose(idx) {
+    var pose = POSES[idx];
+    setPellet(pose.cx);
+    setMuzzle(pose.muzzle);
     var g = document.getElementById('np-dots');
     if (!g) return;
     g.innerHTML = '';
-    for (var i = 0; i < 14; i++) {
-      (function(idx) {
-        var c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    pose.bands.forEach(function(band) {
+      var xMin = band[0], xMax = band[1], n = band[2],
+          yCtr = band[3], ySpan = band[4];
+      for (var i = 0; i < n; i++) {
+        var c  = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        var cx = xMin + (xMax - xMin) * (i / Math.max(n - 1, 1));
+        cx += (Math.random() - 0.5) * ((xMax - xMin) / n) * 0.6;
+        cx  = Math.max(xMin, Math.min(xMax, cx));
+        /* air never passes pellet while pellet is in barrel */
+        if (pose.cx <= MUZZLE_X) cx = Math.min(cx, pose.cx - PELLET_R - 2);
+        var cy = yCtr - ySpan / 2 + Math.random() * ySpan;
+        c.setAttribute('cx', String(cx));
+        c.setAttribute('cy', String(cy));
         c.setAttribute('r', '5');
-        c.setAttribute('cy', String(112 + Math.random() * 18));
-        c.setAttribute('cx', '70');
         c.setAttribute('class', 'np-airdot');
+        c.setAttribute('opacity', '0.75');
         g.appendChild(c);
-        var t = setTimeout(function() {
-          var s = null, dur = 2400;
-          function frame(ts) {
-            if (!s) s = ts;
-            var prog = Math.min((ts - s) / dur, 1);
-            c.setAttribute('cx',      String(70 + 720 * prog));
-            c.setAttribute('opacity', String(0.15 + prog * 0.85));
-            if (prog < 1) { var r = requestAnimationFrame(frame); dotRafs.push(r); }
-          }
-          var r = requestAnimationFrame(frame); dotRafs.push(r);
-        }, idx * 80);
-        dotTimers.push(t);
-      })(i);
-    }
-  }
-
-  /* ── animate pellet via rAF ── */
-  function animatePellet() {
-    pelletTimer = setTimeout(function() {
-      pelletTimer = null;
-      var p = document.getElementById('np-flow-pellet');
-      var l = document.getElementById('np-pellet-label');
-      if (!p) return;
-      var s = null, dur = 1400, sx = 615, ex = 845;
-      function frame(ts) {
-        if (!s) s = ts;
-        var t = Math.min((ts - s) / dur, 1);
-        var cx = sx + (ex - sx) * t * t;  /* ease-in */
-        p.setAttribute('cx', String(cx));
-        if (l) l.setAttribute('x', String(cx));
-        if (t < 1) { pelletRaf = requestAnimationFrame(frame); }
-        else { pelletRaf = null; }
       }
-      pelletRaf = requestAnimationFrame(frame);
-    }, 2200);
+    });
   }
 
-  /* ── run the full sequence ── */
+  /* ── full coordinated animation ── */
   function runAnimation() {
     cancelAll();
-    resetPellet();
     playBtn.disabled = true;
-    setStep(0);
-    steps.forEach(function(_, i) {
-      stepTimers.push(setTimeout(function() { setStep(i); }, i * 700));
+    setActive(0);
+    setPellet(PELLET_HOME);
+    setMuzzle(0);
+
+    /* step highlight timings (ms) */
+    var STEP_MS = [0, 600, 1200, 2000, 2800, 4200];
+    STEP_MS.forEach(function(t, i) {
+      timers.push(setTimeout(function() { setActive(i); }, t));
     });
-    animateDots();
-    animatePellet();
+
+    var FREE_END      = 2800;  /* air travels freely  0 → 2800 ms  */
+    var PELLET_EXIT   = 4200;  /* pellet exits barrel 2800 → 4200   */
+    var BLAST_END     = 5000;  /* muzzle fades        4200 → 5000   */
+    var ANIM_END      = 5300;
+
+    /* build dot pool with pre-assigned cy/exitCy (no random in tick) */
+    var NUM = 18, pool = [];
+    var ag = document.getElementById('np-dots');
+    if (ag) {
+      ag.innerHTML = '';
+      for (var i = 0; i < NUM; i++) {
+        var el = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        el.setAttribute('r', '5');
+        el.setAttribute('class', 'np-airdot');
+        el.setAttribute('opacity', '0');
+        ag.appendChild(el);
+        pool.push({
+          el:      el,
+          stagger: (i / NUM) * 450,
+          cy:      112 + Math.random() * 18,   /* barrel travel cy   */
+          exitCy:  90  + Math.random() * 70    /* expanded exit cy   */
+        });
+      }
+    }
+
+    var startTs = null;
+    function tick(ts) {
+      if (!startTs) startTs = ts;
+      var ms = ts - startTs;
+
+      /* pellet position */
+      var pcx = PELLET_HOME;
+      if (ms >= FREE_END && ms < PELLET_EXIT) {
+        var pt = (ms - FREE_END) / (PELLET_EXIT - FREE_END);
+        pt  = pt * pt;   /* ease-in */
+        pcx = PELLET_HOME + (MUZZLE_X - PELLET_HOME) * pt;
+      } else if (ms >= PELLET_EXIT) {
+        pcx = MUZZLE_X + 50;   /* off screen */
+      }
+      setPellet(pcx);
+
+      /* muzzle blast: fade in then fade out */
+      if (ms >= PELLET_EXIT && ms < BLAST_END) {
+        var bt = (ms - PELLET_EXIT) / (BLAST_END - PELLET_EXIT);
+        setMuzzle(bt < 0.5 ? bt * 2 * 0.85 : (1 - (bt - 0.5) * 2) * 0.85);
+      } else {
+        setMuzzle(0);
+      }
+
+      /* air dots — hard cap: air never passes pellet while in barrel */
+      var pelletInBarrel = pcx <= MUZZLE_X;
+      var hardCap = pcx - PELLET_R - 2;
+
+      pool.forEach(function(d) {
+        var t = ms - d.stagger;
+        if (t < 0) { d.el.setAttribute('opacity', '0'); return; }
+
+        var cx, opacity, cy = d.cy;
+
+        if (t < FREE_END) {
+          /* free phase: bottle (70) → valve exit (550) */
+          var prog = Math.pow(Math.min(t / FREE_END, 1), 0.65);
+          cx      = 70 + (550 - 70) * prog;
+          opacity = 0.15 + prog * 0.65;
+        } else {
+          /* barrel phase: 550 → 885 */
+          var dur2  = BLAST_END - FREE_END;
+          var prog2 = Math.pow(Math.min((t - FREE_END) / dur2, 1), 0.8);
+          cx      = 550 + (885 - 550) * prog2;
+          opacity = 0.8;
+          /* Y spread opens after pellet exits */
+          if (!pelletInBarrel) {
+            var expand = Math.min((cx - MUZZLE_X) / 70, 1);
+            cy = d.cy + (d.exitCy - d.cy) * expand;
+          }
+        }
+
+        /* enforce cap while pellet is inside barrel */
+        if (pelletInBarrel) cx = Math.min(cx, hardCap);
+
+        d.el.setAttribute('cx', String(cx));
+        d.el.setAttribute('cy', String(cy));
+        d.el.setAttribute('opacity', String(Math.min(opacity, 1)));
+      });
+
+      if (ms < ANIM_END) {
+        rafs.push(requestAnimationFrame(tick));
+      }
+      /* stays disabled — only Reset or step-click re-enables */
+    }
+    rafs.push(requestAnimationFrame(tick));
   }
 
-  /* ── step buttons: click to highlight, re-enable animate ── */
+  /* ── step clicks: show snapshot, re-enable animate ── */
   steps.forEach(function(step, i) {
     step.addEventListener('click', function() {
       cancelAll();
-      resetPellet();
-      setStep(i);
+      setActive(i);
+      showPose(i);
       playBtn.disabled = false;
     });
   });
 
-  playBtn.addEventListener('click', function() { runAnimation(); });
-
+  playBtn.addEventListener('click',  function() { runAnimation(); });
   resetBtn.addEventListener('click', function() {
     cancelAll();
-    resetPellet();
-    setStep(0);
+    setActive(0);
+    showPose(0);
     playBtn.disabled = false;
   });
 
-  /* ── auto-play on load ── */
-  runAnimation();
+  runAnimation(); /* auto-play on load */
 })();
 
 /* ── S12: QUIZ ───────────────────────────────────────────────── */
