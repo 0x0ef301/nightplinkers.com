@@ -642,15 +642,14 @@
     <a href="#np-s1">What is a PCP</a>
     <a href="#np-s2">PCP vs Springer</a>
     <a href="#np-s3">Anatomy</a>
-    <a href="#np-s4">Pressure & Safety</a>
+    <a href="#np-s4">Pressure &amp; Safety</a>
     <a href="#np-s5">Regulator</a>
     <a href="#np-s6">Fill Cycle</a>
-    <a href="#np-s7">Shot Cycle</a>
-    <a href="#np-s8">Glossary</a>
-    <a href="#np-s9">Whole Airgun</a>
-    <a href="#np-s10">Air to Motion</a>
-    <a href="#np-s11">Parts Diagram</a>
-    <a href="#np-s12">Quiz</a>
+    <a href="#np-s7">Air to Motion</a>
+    <a href="#np-s8">Shot Cycle</a>
+    <a href="#np-s9">Parts Diagram</a>
+    <a href="#np-s10">Glossary</a>
+    <a href="#np-s11">Quiz</a>
   </nav>
 </div>
 
@@ -771,119 +770,26 @@
 </div>
 
 <!-- ══════════════════════════════════════════
-     S3 — ANATOMY SVG
+     S3 — ANATOMY
 ══════════════════════════════════════════ -->
 
 <div id="np-s3" class="np-section">
 <div class="np-section-inner">
   <div class="np-section-label">Section 03</div>
   <h2 class="np-section-title">PCP <span>Anatomy</span></h2>
-  <div class="np-young-note">🔍 Click on any glowing part in the diagram to find out what it does and why it matters.</div>
-  <p class="np-lead">Tap any highlighted part to learn what it does.</p>
-
-  <div class="np-anatomy-svg-container">
-    <svg id="np-anat-svg" viewBox="0 0 780 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;">
-      <!-- Background -->
-      <rect width="780" height="240" fill="#111720"/>
-
-```
-  <!-- ── RESERVOIR (tube) ── -->
-  <g class="anat-part" id="anat-reservoir" onclick="npSelectPart('reservoir')">
-    <rect class="anat-fill" x="60" y="90" width="220" height="60" rx="30" fill="#1a2535" stroke="#1e2d3d" stroke-width="2"/>
-    <rect class="anat-fill" x="60" y="100" width="220" height="40" rx="20" fill="#162030" opacity="0.8"/>
-    <!-- highlight band -->
-    <rect x="80" y="100" width="60" height="4" rx="2" fill="#32ff6a" opacity="0.15"/>
-    <circle class="anat-dot" cx="160" cy="120" r="5"/>
-    <text class="anat-label" x="150" y="76" text-anchor="middle">RESERVOIR</text>
-  </g>
-
-  <!-- ── FILL PORT ── -->
-  <g class="anat-part" id="anat-fillport" onclick="npSelectPart('fillport')">
-    <rect class="anat-fill" x="62" y="108" width="18" height="24" rx="3" fill="#1e3a28" stroke="#1e2d3d" stroke-width="1.5"/>
-    <circle class="anat-dot" cx="71" cy="120" r="4"/>
-    <text class="anat-label" x="30" y="155" text-anchor="middle">FILL PORT</text>
-    <line x1="71" y1="130" x2="71" y2="148" stroke="#6a7f94" stroke-width="1" stroke-dasharray="3,2"/>
-  </g>
-
-  <!-- ── MANOMETER (gauge) ── -->
-  <g class="anat-part" id="anat-manometer" onclick="npSelectPart('manometer')">
-    <circle class="anat-fill" cx="160" cy="155" r="16" fill="#1a2535" stroke="#1e2d3d" stroke-width="2"/>
-    <circle cx="160" cy="155" r="11" fill="#0b1520" stroke="#32ff6a" stroke-width="1" opacity="0.4"/>
-    <line x1="160" y1="147" x2="165" y2="153" stroke="#32ff6a" stroke-width="1.5" opacity="0.7"/>
-    <circle class="anat-dot" cx="160" cy="155" r="4"/>
-    <line x1="160" y1="139" x2="160" y2="120" stroke="#6a7f94" stroke-width="1" stroke-dasharray="3,2"/>
-    <text class="anat-label" x="160" y="183" text-anchor="middle">MANOMETER</text>
-  </g>
-
-  <!-- ── REGULATOR ── -->
-  <g class="anat-part" id="anat-regulator" onclick="npSelectPart('regulator')">
-    <rect class="anat-fill" x="280" y="100" width="36" height="40" rx="6" fill="#1e2a20" stroke="#1e2d3d" stroke-width="2"/>
-    <rect x="290" y="106" width="16" height="28" rx="3" fill="#132018" opacity="0.8"/>
-    <circle class="anat-dot" cx="298" cy="120" r="4"/>
-    <text class="anat-label" x="298" y="76" text-anchor="middle">REGULATOR</text>
-  </g>
-
-  <!-- ── PLENUM ── -->
-  <g class="anat-part" id="anat-plenum" onclick="npSelectPart('plenum')">
-    <rect class="anat-fill" x="316" y="104" width="44" height="32" rx="4" fill="#1a2535" stroke="#1e2d3d" stroke-width="2"/>
-    <circle class="anat-dot" cx="338" cy="120" r="4"/>
-    <text class="anat-label" x="338" y="76" text-anchor="middle">PLENUM</text>
-  </g>
-
-  <!-- ── VALVE ── -->
-  <g class="anat-part" id="anat-valve" onclick="npSelectPart('valve')">
-    <rect class="anat-fill" x="360" y="96" width="40" height="48" rx="6" fill="#202840" stroke="#1e2d3d" stroke-width="2"/>
-    <ellipse cx="380" cy="120" rx="12" ry="16" fill="#1a1e30" opacity="0.8"/>
-    <circle class="anat-dot" cx="380" cy="120" r="4"/>
-    <text class="anat-label" x="380" y="76" text-anchor="middle">VALVE</text>
-  </g>
-
-  <!-- ── HAMMER / STRIKER ── -->
-  <g class="anat-part" id="anat-hammer" onclick="npSelectPart('hammer')">
-    <rect class="anat-fill" x="400" y="100" width="50" height="40" rx="4" fill="#2a1e1a" stroke="#1e2d3d" stroke-width="2"/>
-    <rect x="408" y="108" width="34" height="24" rx="2" fill="#1e1510" opacity="0.7"/>
-    <circle class="anat-dot" cx="425" cy="120" r="4"/>
-    <text class="anat-label" x="425" y="76" text-anchor="middle">HAMMER</text>
-  </g>
-
-  <!-- ── TRIGGER / SEAR ── -->
-  <g class="anat-part" id="anat-trigger" onclick="npSelectPart('trigger')">
-    <polygon class="anat-fill" points="460,100 500,100 500,140 480,155 460,140" fill="#201a2a" stroke="#1e2d3d" stroke-width="2"/>
-    <rect x="472" y="136" width="8" height="24" rx="2" fill="#32ff6a" opacity="0.25"/>
-    <circle class="anat-dot" cx="480" cy="118" r="4"/>
-    <text class="anat-label" x="480" y="76" text-anchor="middle">TRIGGER/SEAR</text>
-  </g>
-
-  <!-- ── BARREL ── -->
-  <g class="anat-part" id="anat-barrel" onclick="npSelectPart('barrel')">
-    <rect class="anat-fill" x="500" y="112" width="200" height="16" rx="2" fill="#1a2030" stroke="#1e2d3d" stroke-width="2"/>
-    <rect x="502" y="114" width="196" height="4" rx="1" fill="#32ff6a" opacity="0.06"/>
-    <circle class="anat-dot" cx="600" cy="120" r="4"/>
-    <text class="anat-label" x="600" y="100" text-anchor="middle">BARREL</text>
-  </g>
-
-  <!-- ── MODERATOR ── -->
-  <g class="anat-part" id="anat-moderator" onclick="npSelectPart('moderator')">
-    <rect class="anat-fill" x="700" y="106" width="50" height="28" rx="8" fill="#1a2030" stroke="#1e2d3d" stroke-width="2"/>
-    <rect x="706" y="110" width="38" height="8" rx="4" fill="#0f1520" opacity="0.8"/>
-    <circle class="anat-dot" cx="725" cy="120" r="4"/>
-    <text class="anat-label" x="725" y="150" text-anchor="middle">MODERATOR</text>
-  </g>
-
-  <!-- Connecting lines (air flow) -->
-  <line x1="280" y1="120" x2="316" y2="120" stroke="#32ff6a" stroke-width="1.5" opacity="0.2" stroke-dasharray="4,3"/>
-  <line x1="360" y1="120" x2="360" y2="120" stroke="#32ff6a" stroke-width="1.5" opacity="0.2"/>
-  <line x1="500" y1="120" x2="500" y2="120" stroke="#32ff6a" stroke-width="1" opacity="0.2"/>
-</svg>
-```
-
+  <div class="np-young-note">🔍 Tap each numbered circle to learn what that part does and why it matters.</div>
+  <p class="np-lead">Before the detailed sections, take a moment to see the whole rifle. Tap any circle to learn what each major part does.</p>
+  <div class="np-hotspot-wrap" aria-label="Interactive BRK Ghost airgun photo with labeled parts">
+    <img src="../images/brk-ghost-side-view.png" alt="BRK Brocock Ghost PCP air rifle side view" loading="lazy">
+    <button class="np-hotspot" style="left:68%;top:61%" data-title="Air Bottle" data-text="The large bottle stores high-pressure compressed air. Think of it like a very strong reusable air tank. The air is not burned like gunpowder; it is already squeezed tightly inside the bottle.">1</button>
+    <button class="np-hotspot" style="left:49%;top:63%" data-title="Pressure Gauge" data-text="The gauge helps the shooter check air pressure. A gauge is like a speedometer for pressure: it shows whether the air system is in its safe working range.">2</button>
+    <button class="np-hotspot" style="left:43%;top:53%" data-title="Action / Receiver" data-text="The action is the central body where several important jobs meet: loading, controlling airflow, holding parts in alignment, and connecting the barrel and air system.">3</button>
+    <button class="np-hotspot" style="left:59%;top:39%" data-title="Barrel" data-text="The barrel is the tube the pellet travels through. Many barrels have rifling, which means spiral grooves that can spin the pellet for better stability.">4</button>
+    <button class="np-hotspot" style="left:33%;top:69%" data-title="Trigger and Grip" data-text="The trigger starts the firing sequence. The grip gives the shooter a controlled place to hold the airgun. Students should understand the trigger as a control, not as a toy button.">5</button>
+    <button class="np-hotspot" style="left:7%;top:49%" data-title="Shoulder Stock" data-text="The stock helps support and aim the airgun. On this example, the stock is adjustable so it can fit different adult shooters.">6</button>
+    <button class="np-hotspot" style="left:46%;top:19%" data-title="Scope" data-text="The scope is an aiming tool mounted on top. It does not make the airgun more powerful; it helps the shooter see and aim more precisely.">7</button>
   </div>
-
-  <div class="np-anatomy-info" id="np-anat-info">
-    <div class="part-hint">▲ Click a part above</div>
-    <h3 id="np-anat-name">Select a component</h3>
-    <p id="np-anat-desc">Tap or click any labelled part on the diagram to see what it does and why it matters.</p>
-  </div>
+  <div id="np-infoBox"><strong>Tap a numbered circle above.</strong><br>Each hotspot explains a major part in student-friendly language.</div>
 </div>
 </div>
 
@@ -1366,12 +1272,51 @@
 </div>
 
 <!-- ══════════════════════════════════════════
-     S7 — SHOT CYCLE
+     S7 — THE BIG IDEA: STORED AIR BECOMES MOTION
 ══════════════════════════════════════════ -->
 
 <div id="np-s7" class="np-section">
 <div class="np-section-inner">
   <div class="np-section-label">Section 07</div>
+  <h2 class="np-section-title">The Big Idea: Stored Air <span>Becomes Motion</span></h2>
+  <p class="np-lead">A PCP airgun is called <strong>pre-charged pneumatic</strong> because its air is charged, or filled, before shooting. The air sits in a pressure vessel until the mechanism releases a controlled amount.</p>
+  <div class="np-flow" id="np-flow">
+    <div class="np-step active">1. Fill with air</div><div class="np-arrow">→</div>
+    <div class="np-step">2. Store pressure</div><div class="np-arrow">→</div>
+    <div class="np-step">3. Regulate air</div><div class="np-arrow">→</div>
+    <div class="np-step">4. Open valve</div><div class="np-arrow">→</div>
+    <div class="np-step">5. Push pellet</div><div class="np-arrow">→</div>
+    <div class="np-step">6. Pellet exits barrel</div>
+  </div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin:14px 0;">
+    <button class="np-btn" id="np-playFlow">&#9654; Animate Airflow</button>
+    <button class="np-btn secondary" id="np-resetFlow">&#8635; Reset</button>
+  </div>
+  <svg viewBox="0 0 900 240" role="img" aria-label="Animated diagram showing compressed air moving from bottle through regulator and valve to pellet and barrel" style="width:100%;max-width:950px;display:block;margin:auto;background:var(--panel);border:1px solid var(--border);border-radius:18px;">
+    <defs><marker id="np-arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#4fc3f7"/></marker></defs>
+    <rect x="45" y="90" width="230" height="70" rx="35" fill="#1f2937" stroke="#4a5568"/>
+    <text x="160" y="82" fill="#e5e7eb" text-anchor="middle" font-size="14">Air Bottle</text>
+    <rect x="310" y="95" width="110" height="60" rx="12" fill="#26364f" stroke="#4a5568"/>
+    <text x="365" y="88" fill="#e5e7eb" text-anchor="middle" font-size="14">Regulator</text>
+    <rect x="455" y="95" width="95" height="60" rx="12" fill="#26364f" stroke="#4a5568"/>
+    <text x="502" y="88" fill="#e5e7eb" text-anchor="middle" font-size="14">Valve</text>
+    <rect x="590" y="108" width="250" height="34" rx="17" fill="#111827" stroke="#4a5568"/>
+    <text x="715" y="98" fill="#e5e7eb" text-anchor="middle" font-size="14">Barrel</text>
+    <circle class="np-pellet-dot" id="np-flow-pellet" cx="615" cy="125" r="12"/>
+    <text x="615" y="166" fill="#f0a500" text-anchor="middle" font-size="13">pellet</text>
+    <path d="M275 125 H310 M420 125 H455 M550 125 H590" stroke="#4fc3f7" stroke-width="5" fill="none" marker-end="url(#np-arr)" stroke-dasharray="10 12" opacity=".65"/>
+    <g id="np-dots"></g>
+  </svg>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S8 — SHOT CYCLE
+══════════════════════════════════════════ -->
+
+<div id="np-s8" class="np-section">
+<div class="np-section-inner">
+  <div class="np-section-label">Section 08</div>
   <h2 class="np-section-title">The <span>Shot Cycle</span></h2>
   <div class="np-young-note">⚡ A PCP fires in less than 15 milliseconds — that's faster than the blink of an eye! Here's what happens inside the gun during those milliseconds, one step at a time. Watch the diagram above update as you step through.</div>
   <p class="np-lead">A PCP fires in milliseconds. Here's what happens inside during that instant — step by step.</p>
@@ -1586,12 +1531,36 @@
 </div>
 
 <!-- ══════════════════════════════════════════
-     S8 — GLOSSARY
+     S9 — WHAT THE PARTS DIAGRAM TEACHES
 ══════════════════════════════════════════ -->
 
-<div id="np-s8" class="np-section" style="background:var(--bg2);">
+<div id="np-s9" class="np-section">
 <div class="np-section-inner">
-  <div class="np-section-label">Section 08</div>
+  <div class="np-section-label">Section 09</div>
+  <h2 class="np-section-title">What the <span>Parts Diagram</span> Teaches</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-top:12px;">
+    <div style="background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:14px;overflow:hidden;">
+      <img src="../images/brk-ghost-parts-diagram.png" alt="BRK Ghost exploded parts diagram" style="width:100%;display:block;border-radius:12px;background:#fff;" loading="lazy">
+      <div style="color:var(--muted);font-size:.92rem;margin-top:8px;">Exploded diagrams show parts separated so a technician can identify assemblies. They are not step-by-step youth disassembly instructions.</div>
+    </div>
+    <div>
+      <h3 style="margin:0 0 10px;color:#dbeafe;font-family:var(--font-head);font-size:1.3rem;letter-spacing:.06em;">How to read it</h3>
+      <p style="color:var(--text);line-height:1.7;">The diagram shows that the airgun is made from many smaller systems: frame, barrel, air bottle, gauge, rail, trigger group, stock, fasteners, seals, and other internal parts. In class, students should focus on the <strong>systems</strong>, not memorizing every part number.</p>
+      <details><summary>Why are there so many small parts?</summary><p style="margin-top:8px;color:var(--text);">Precision machines need alignment, seals, springs, screws, and safety-related components. A small part can have an important job, especially when compressed air is involved.</p></details>
+      <details><summary>What are seals?</summary><p style="margin-top:8px;color:var(--text);">Seals help keep air from leaking. A simple comparison is a bicycle pump seal: if the seal fails, pressure escapes and the pump works poorly.</p></details>
+      <details><summary>Why not take it apart in class?</summary><p style="margin-top:8px;color:var(--text);">PCP airguns contain compressed-air systems and precision parts. Disassembly should be done only by qualified adults following the manufacturer's instructions.</p></details>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S10 — GLOSSARY
+══════════════════════════════════════════ -->
+
+<div id="np-s10" class="np-section" style="background:var(--bg2);">
+<div class="np-section-inner">
+  <div class="np-section-label">Section 10</div>
   <h2 class="np-section-title">PCP <span>Terms</span></h2>
   <div class="np-young-note">📖 New to airgunning? Click any term below to learn what it means in plain English. Understanding the words makes everything else make more sense.</div>
   <p class="np-lead">The jargon decoded. Click any term to expand.</p>
@@ -1793,98 +1762,12 @@
 </style>
 
 <!-- ══════════════════════════════════════════
-     S9 — START WITH THE WHOLE AIRGUN
-══════════════════════════════════════════ -->
-
-<div id="np-s9" class="np-section">
-<div class="np-section-inner">
-  <div class="np-section-label">Section 09</div>
-  <h2 class="np-section-title">Start With the <span>Whole Airgun</span></h2>
-  <p class="np-lead">Before zooming in on any single part, take a moment to see the whole rifle. Tap each numbered circle to learn what that part does in student-friendly language.</p>
-  <div class="np-hotspot-wrap" aria-label="Interactive BRK Ghost airgun photo with labeled parts">
-    <img src="../images/brk-ghost-side-view.png" alt="BRK Brocock Ghost PCP air rifle side view" loading="lazy">
-    <button class="np-hotspot" style="left:68%;top:61%" data-title="Air Bottle" data-text="The large bottle stores high-pressure compressed air. Think of it like a very strong reusable air tank. The air is not burned like gunpowder; it is already squeezed tightly inside the bottle.">1</button>
-    <button class="np-hotspot" style="left:49%;top:63%" data-title="Pressure Gauge" data-text="The gauge helps the shooter check air pressure. A gauge is like a speedometer for pressure: it shows whether the air system is in its safe working range.">2</button>
-    <button class="np-hotspot" style="left:43%;top:53%" data-title="Action / Receiver" data-text="The action is the central body where several important jobs meet: loading, controlling airflow, holding parts in alignment, and connecting the barrel and air system.">3</button>
-    <button class="np-hotspot" style="left:59%;top:39%" data-title="Barrel" data-text="The barrel is the tube the pellet travels through. Many barrels have rifling, which means spiral grooves that can spin the pellet for better stability.">4</button>
-    <button class="np-hotspot" style="left:33%;top:69%" data-title="Trigger and Grip" data-text="The trigger starts the firing sequence. The grip gives the shooter a controlled place to hold the airgun. Students should understand the trigger as a control, not as a toy button.">5</button>
-    <button class="np-hotspot" style="left:7%;top:49%" data-title="Shoulder Stock" data-text="The stock helps support and aim the airgun. On this example, the stock is adjustable so it can fit different adult shooters.">6</button>
-    <button class="np-hotspot" style="left:46%;top:19%" data-title="Scope" data-text="The scope is an aiming tool mounted on top. It does not make the airgun more powerful; it helps the shooter see and aim more precisely.">7</button>
-  </div>
-  <div id="np-infoBox"><strong>Tap a numbered circle above.</strong><br>Each hotspot explains a major part in student-friendly language.</div>
-</div>
-</div>
-
-<!-- ══════════════════════════════════════════
-     S10 — THE BIG IDEA: STORED AIR BECOMES MOTION
-══════════════════════════════════════════ -->
-
-<div id="np-s10" class="np-section">
-<div class="np-section-inner">
-  <div class="np-section-label">Section 10</div>
-  <h2 class="np-section-title">The Big Idea: Stored Air <span>Becomes Motion</span></h2>
-  <p class="np-lead">A PCP airgun is called <strong>pre-charged pneumatic</strong> because its air is charged, or filled, before shooting. The air sits in a pressure vessel until the mechanism releases a controlled amount.</p>
-  <div class="np-flow" id="np-flow">
-    <div class="np-step active">1. Fill with air</div><div class="np-arrow">→</div>
-    <div class="np-step">2. Store pressure</div><div class="np-arrow">→</div>
-    <div class="np-step">3. Regulate air</div><div class="np-arrow">→</div>
-    <div class="np-step">4. Open valve</div><div class="np-arrow">→</div>
-    <div class="np-step">5. Push pellet</div><div class="np-arrow">→</div>
-    <div class="np-step">6. Pellet exits barrel</div>
-  </div>
-  <div style="display:flex;gap:10px;flex-wrap:wrap;margin:14px 0;">
-    <button class="np-btn" id="np-playFlow">&#9654; Animate Airflow</button>
-    <button class="np-btn secondary" id="np-resetFlow">&#8635; Reset</button>
-  </div>
-  <svg viewBox="0 0 900 240" role="img" aria-label="Animated diagram showing compressed air moving from bottle through regulator and valve to pellet and barrel" style="width:100%;max-width:950px;display:block;margin:auto;background:var(--panel);border:1px solid var(--border);border-radius:18px;">
-    <defs><marker id="np-arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#4fc3f7"/></marker></defs>
-    <rect x="45" y="90" width="230" height="70" rx="35" fill="#1f2937" stroke="#4a5568"/>
-    <text x="160" y="82" fill="#e5e7eb" text-anchor="middle" font-size="14">Air Bottle</text>
-    <rect x="310" y="95" width="110" height="60" rx="12" fill="#26364f" stroke="#4a5568"/>
-    <text x="365" y="88" fill="#e5e7eb" text-anchor="middle" font-size="14">Regulator</text>
-    <rect x="455" y="95" width="95" height="60" rx="12" fill="#26364f" stroke="#4a5568"/>
-    <text x="502" y="88" fill="#e5e7eb" text-anchor="middle" font-size="14">Valve</text>
-    <rect x="590" y="108" width="250" height="34" rx="17" fill="#111827" stroke="#4a5568"/>
-    <text x="715" y="98" fill="#e5e7eb" text-anchor="middle" font-size="14">Barrel</text>
-    <circle class="np-pellet-dot" id="np-flow-pellet" cx="615" cy="125" r="12"/>
-    <text x="615" y="166" fill="#f0a500" text-anchor="middle" font-size="13">pellet</text>
-    <path d="M275 125 H310 M420 125 H455 M550 125 H590" stroke="#4fc3f7" stroke-width="5" fill="none" marker-end="url(#np-arr)" stroke-dasharray="10 12" opacity=".65"/>
-    <g id="np-dots"></g>
-  </svg>
-</div>
-</div>
-
-<!-- ══════════════════════════════════════════
-     S11 — WHAT THE PARTS DIAGRAM TEACHES
+     S11 — INTERACTIVE CHECK
 ══════════════════════════════════════════ -->
 
 <div id="np-s11" class="np-section">
 <div class="np-section-inner">
   <div class="np-section-label">Section 11</div>
-  <h2 class="np-section-title">What the <span>Parts Diagram</span> Teaches</h2>
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-top:12px;">
-    <div style="background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:14px;overflow:hidden;">
-      <img src="../images/brk-ghost-parts-diagram.png" alt="BRK Ghost exploded parts diagram" style="width:100%;display:block;border-radius:12px;background:#fff;" loading="lazy">
-      <div style="color:var(--muted);font-size:.92rem;margin-top:8px;">Exploded diagrams show parts separated so a technician can identify assemblies. They are not step-by-step youth disassembly instructions.</div>
-    </div>
-    <div>
-      <h3 style="margin:0 0 10px;color:#dbeafe;font-family:var(--font-head);font-size:1.3rem;letter-spacing:.06em;">How to read it</h3>
-      <p style="color:var(--text);line-height:1.7;">The diagram shows that the airgun is made from many smaller systems: frame, barrel, air bottle, gauge, rail, trigger group, stock, fasteners, seals, and other internal parts. In class, students should focus on the <strong>systems</strong>, not memorizing every part number.</p>
-      <details><summary>Why are there so many small parts?</summary><p style="margin-top:8px;color:var(--text);">Precision machines need alignment, seals, springs, screws, and safety-related components. A small part can have an important job, especially when compressed air is involved.</p></details>
-      <details><summary>What are seals?</summary><p style="margin-top:8px;color:var(--text);">Seals help keep air from leaking. A simple comparison is a bicycle pump seal: if the seal fails, pressure escapes and the pump works poorly.</p></details>
-      <details><summary>Why not take it apart in class?</summary><p style="margin-top:8px;color:var(--text);">PCP airguns contain compressed-air systems and precision parts. Disassembly should be done only by qualified adults following the manufacturer's instructions.</p></details>
-    </div>
-  </div>
-</div>
-</div>
-
-<!-- ══════════════════════════════════════════
-     S12 — INTERACTIVE CHECK
-══════════════════════════════════════════ -->
-
-<div id="np-s12" class="np-section">
-<div class="np-section-inner">
-  <div class="np-section-label">Section 12</div>
   <h2 class="np-section-title"><span>Interactive</span> Check</h2>
   <p class="np-lead">Test your understanding. Select the best answer for each question.</p>
   <div class="np-quiz-box" id="np-quiz-box"></div>
